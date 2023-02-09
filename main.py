@@ -7,6 +7,9 @@ pygame.init()
 # create  the screen
 screen = pygame.display.set_mode((800,600))
 
+# Background
+background = pygame.image.load('background.png')
+
 # Title and Icon
 pygame.display.set_caption("Space Invaders")
 icon = pygame.image.load("ufo.png")
@@ -22,7 +25,7 @@ playerX_change = 0
 enemyImage = pygame.image.load("enemy.png")
 enemyX = random.randint(0,800)
 enemyY = random.randint(50,150)
-enemyX_change = 0.3
+enemyX_change = 4
 enemyY_change = 40
 
 def player(x,y):
@@ -35,15 +38,17 @@ def enemy(x,y):
 running = True
 while running:
     screen.fill((0,0,0))
+    # Background Image
+    screen.blit(background,(0,0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         # if keystroke is pressed check wheter its right or left
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                playerX_change = -0.3
+                playerX_change = -5
             if event.key == pygame.K_RIGHT:
-                playerX_change = 0.3
+                playerX_change = 5
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
@@ -60,10 +65,10 @@ while running:
     enemyX += enemyX_change   
     
     if enemyX <= 0:
-        enemyX_change = 0.3
+        enemyX_change = 4
         enemyY += enemyY_change
     elif enemyX >= 736:
-        enemyX_change = -0.3
+        enemyX_change = -4
         enemyY += enemyY_change
 
     player(playerX,playerY)
